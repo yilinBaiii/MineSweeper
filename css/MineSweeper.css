@@ -1,9 +1,9 @@
-#initial{
+/* #initial{
     width:40px;
     height:40px;
     border:2px solid grey;
     
-}
+} */
 #mines_table{
     margin-left:20%;
     /* margin-top:20%; */
@@ -13,7 +13,7 @@ button{
     width:20px;
     height:20px;
     padding:0px;
-    background-image: url("Minesweeper_unopened_square.png");
+    /* background-image: url("Minesweeper_unopened_square.png"); */
     background-size: contain;
     background-repeat: no-repeat;
     border:0px solid rgb(248, 43, 43);
