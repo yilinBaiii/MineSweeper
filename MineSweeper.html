@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>MineSweeper</title>
+    <link rel="stylesheet" type="text/css" href="css/MineSweeper.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/MineSweeper.js"></script><!-- NerverMind -->
+</head>
+<body>
+    <div id="framework">
+        <div id="screen">
+
+        </div>
+        <table id="mines_table">
+           
+        </table>
+        <div class="input_text">
+            <label for="input_row"> Please input the row number:</label>
+            <input type="text" id="input_row" > <br>
+        
+        
+            <label for="input_col"> Please input the column number:</label>
+            <input type="text" id="input_col" > <br>
+        
+        
+            <label for="input_landmine"> Please input the landmines number:</label>
+            <input type="text" id="input_landmine" ><br>
+            <button id="submit_button" onclick="generate_table()" style="width:80px;margin-top:20px;margin-left:100px;border:2px solid grey;">Submit</button>
+        </div>
+    </div>
+
+</body>
+</html>

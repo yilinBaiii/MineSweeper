@@ -1,0 +1,46 @@
+#initial{
+    width:40px;
+    height:40px;
+    border:2px solid grey;
+    
+}
+#mines_table{
+    margin-left:20%;
+    /* margin-top:20%; */
+}
+
+button{
+    width:20px;
+    height:20px;
+    padding:0px;
+    background-image: url("Minesweeper_unopened_square.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    border:0px solid rgb(248, 43, 43);
+    margin:auto;
+
+    
+}
+
+/* .input_text{
+    margin-left:40%;
+    margin-top:20px;
+} */
+
+#framework{
+    margin-left:50%;
+    margin-top:20%;
+    /* width:220px;
+    height:350px; */
+    /* background-color: gray; */
+    /* border: 5px solid gray; */
+
+}
+
+/* #screen{
+    width:200;
+    height:50px;
+
+    border: 5px solid gray;
+
+} */
