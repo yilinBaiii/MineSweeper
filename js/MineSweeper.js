@@ -1,16 +1,16 @@
 default_row_number=5;
 default_col_number=5;
 default_landmine_number=5;
-var cell="";
+// var cell="";
 $(function(){
     generate_table();
 })
 
-var tableInfo = Array.prototype.map.call(document.querySelectorAll('#tableId tr'),function(tr){
-    return Array.prototype.map.call(tr.querySelectorAll('td'), function(td){
-      return td.innerHTML;
-      });
-    });
+// var tableInfo = Array.prototype.map.call(document.querySelectorAll('#tableId tr'),function(tr){
+//     return Array.prototype.map.call(tr.querySelectorAll('td'), function(td){
+//       return td.innerHTML;
+//       });
+//     });
 
 
 
@@ -72,7 +72,7 @@ function calculate_mines_of_cells(){
     // var number_in_each_cell=0;
     for(var i=0;i<number_of_mines.length;i++)
         {for(var j =0;j <number_of_mines[i].length;j++){
-
+            
             if(landmines[i][j]==0){
                 // number_of_mines[i][j]
                 if(typeof landmines[i-1]!="undefined" && typeof landmines[i-1][j-1]!="undefined"  && landmines[i-1][j-1]==1){
@@ -114,62 +114,57 @@ function calculate_mines_of_cells(){
 function uncover_cells(){
     generator_landmines();
     calculate_mines_of_cells();
-    // for(var i=0;i<number_of_mines.length;i++){
-    //     for(var j=0;j<number_of_mines[i].length;j++){
-    //         cell="btn_"+i+"_"+j;
-    //         document.getElementById(cell).onclick=cell_id(cell);
-    //     }
-    // }
-
-    // document.getElementById().addEventListener("click",set_cells_bg);
+    
 }
 
 
 
 function change_cells_bg(cell){
-    
+    // alert("hello");
     for(var i=0;i<number_of_mines.length;i++){
         for(var j=0;j<number_of_mines[i].length;j++){
-
-            if( number_of_mines[i][j]==0){
+            // var cellID=cell.substr(4,a.size).split("_");
+            // var i=cellID[0];
+            // var j=cellID[1];
+            if(cell=="btn_"+i+"_"+j &&  number_of_mines[i][j]==0){
                 
-                cell.backgroundImage="url('Minesweeper_0.png')";
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_0.png')";
                 break;
             }
-            if(number_of_mines[i][j]==1){
-                cell.backgroundImage="url('Minesweeper_1.png')";
+            else if(cell=="btn_"+i+"_"+j && number_of_mines[i][j]==1){
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_1.png')";
                 break;
             }
-            if(number_of_mines[i][j]==2){
-                cell.backgroundImage="url('Minesweeper_2.png')";
+            else if(cell=="btn_"+i+"_"+j && number_of_mines[i][j]==2){
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_2.png')";
                 break;
             }
-            if(number_of_mines[i][j]==3){
-                cell.backgroundImage="url('Minesweeper_3.png')";
+            else if(cell=="btn_"+i+"_"+j && number_of_mines[i][j]==3){
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_3.png')";
                 break;
             }
-            if(number_of_mines[i][j]==4){
-                cell.backgroundImage="url('Minesweeper_4.png')";
+            else if(cell=="btn_"+i+"_"+j && number_of_mines[i][j]==4){
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_4.png')";
                 break;
             }
-            if(number_of_mines[i][j]==5){
-                cell.backgroundImage="url('Minesweeper_5.png')";
+            else if(cell=="btn_"+i+"_"+j && number_of_mines[i][j]==5){
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_5.png')";
                 break;
             }
-            if(number_of_mines[i][j]==6){
-                cell.backgroundImage="url('Minesweeper_6.png')";
+            else if(cell=="btn_"+i+"_"+j && number_of_mines[i][j]==6){
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_6.png')";
                 break;
             }
-            if(number_of_mines[i][j]==7){
-                cell.backgroundImage="url('Minesweeper_7.png')";
+            else if(cell=="btn_"+i+"_"+j && number_of_mines[i][j]==7){
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_7.png')";
                 break;
             }
-            if(number_of_mines[i][j]==8){
-                cell.backgroundImage="url('Minesweeper_8.png')";
+            else if(cell=="btn_"+i+"_"+j && number_of_mines[i][j]==8){
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_8.png')";
                 break;
             }
-            if(number_of_mines[i][j]=="*"){
-                cell.backgroundImage="url('Minesweeper_mineSelected.png')";
+            else if(cell=="btn_"+i+"_"+j && number_of_mines[i][j]=="*"){
+                document.getElementById(cell).style.backgroundImage="url('Minesweeper_mineSelected.png')";
                 break;
             }
         }
@@ -219,8 +214,8 @@ function generate_table() {
             new_button.setAttribute("id","btn_"+row_index+"_"+col_index);
             // new_button.addEventListener("click",alert("hello"));
             // console.log()
-            // new_button.onclick=alert("hello");
-            new_button.onclick=change_cells_bg(this);
+            // new_button.onclick=function() {alert("hello");}
+            new_button.onclick=function() { change_cells_bg(this.id);}
 
            
         }
