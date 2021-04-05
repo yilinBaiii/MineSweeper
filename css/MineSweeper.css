@@ -43,7 +43,7 @@ button{
     background-repeat: no-repeat;
     border:0px solid ;
     padding:0;
-    /* margin:auto; */
+    outline:none;
    
 }
 
