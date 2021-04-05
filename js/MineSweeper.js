@@ -12,11 +12,11 @@ var number_of_mines = [];
 //main
 $(function () {
     generate_table();
-    generator_landmines();
-    calculate_mines_of_cells();
 })
 
 function generate_table() {
+    landmines = [];
+    number_of_mines = [];
     document.getElementById("mines_table").innerHTML = "";
     var constants = get_constant();
     var row_number = constants[0];
@@ -40,6 +40,9 @@ function generate_table() {
         }
         document.getElementById("mines_table").appendChild(new_row);
     }
+    generator_landmines();
+    calculate_mines_of_cells();
+
 
 }
 
@@ -83,7 +86,6 @@ function calculate_mines_of_cells() {
         }
     }
 
-    // var number_in_each_cell=0;
     for (var i = 0; i < number_of_mines.length; i++) {
         for (var j = 0; j < number_of_mines[i].length; j++) {
 
@@ -133,7 +135,7 @@ function change_cells_bg(cell) {
         0: "url('" + path + "Minesweeper_0.png')",
         1: "url('" + path + "Minesweeper_1.png')",
         2: "url('" + path + "Minesweeper_2.png')",
-        3: "url'(" + path + "Minesweeper_3.png')",
+        3: "url('" + path + "Minesweeper_8.png')",
         4: "url('" + path + "Minesweeper_4.png')",
         5: "url('" + path + "Minesweeper_5.png')",
         6: "url('" + path + "Minesweeper_6.png')",
@@ -150,10 +152,6 @@ function change_cells_bg(cell) {
 }
 
 function get_constant() {
-
-    // var row_number =.value;
-    // var col_number = .value;
-    // var landmine_number = ).value;
 
     if (document.getElementById("input_row").value == "" || document.getElementById("input_col").value == "" || document.getElementById("input_landmine".value) == "") {
         var row_number = default_row_number;
