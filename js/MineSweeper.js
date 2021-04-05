@@ -3,16 +3,31 @@ var default_row_number = 5;
 var default_col_number = 5;
 var default_landmine_number = 5;
 var path = "./icons/";
-
+var uncovered =[];
 //global variables
 var landmines = [];
 var number_of_mines = [];
 
+$(document).bind("contextmenu", function(e) {
+    return false;
+});
 
 //main
 $(function () {
-    generate_table();
+    generate_table();  
 })
+
+function set_right_click(cell){
+    if(document.getElementById(cell).style.backgroundImage== 'url("' + path + 'Minesweeper_flag.png")'){
+        // document.getElementById(cell).style.backgroundImage="";
+        document.getElementById(cell).style.backgroundImage= 'url("' + path + 'Minesweeper_unopened_square.png")';
+    }
+    else{
+        document.getElementById(cell).style.backgroundImage= 'url("' + path + 'Minesweeper_flag.png")';
+    }
+    
+    
+}
 
 function generate_table() {
     landmines = [];
@@ -36,6 +51,9 @@ function generate_table() {
             new_button.setAttribute("id", "btn_" + row_index + "_" + col_index);
             new_button.onclick = function () {
                 change_cells_bg(this.id);
+            }
+            new_button.oncontextmenu=function(){
+                set_right_click(this.id);
             }
         }
         document.getElementById("mines_table").appendChild(new_row);
@@ -80,9 +98,11 @@ function calculate_mines_of_cells() {
 
     for (var i = 0; i < landmines.length; i++) {
         number_of_mines[i] = [];
+        uncovered[i]=[];
         for (var j = 0; j < landmines[i].length; j++) {
 
             number_of_mines[i][j] = 0;
+            uncovered[i][j] = 0;
         }
     }
 
@@ -127,7 +147,49 @@ function calculate_mines_of_cells() {
 }
 
 
+function uncover_all_safe_cells(cell){
+    var cellID = cell.substr(4, cell.size).split("_");
+    
+    var row = cellID[0];
+    var col = cellID[1];
+    row=Number(row);
+    col=Number(col);
+    // var cell="btn_"+row+"_"+col;
+    var row_last=row-1;
+    var row_next=row+1;
+    var col_last=col-1;
+    var col_next=col+1;
+    
+    document.getElementById(cell).style.backgroundImage ="url('" + path + "Minesweeper_0.png')";
+    uncovered[row][col]=1;
 
+    if(typeof number_of_mines[row - 1] != "undefined" && typeof number_of_mines[row - 1][col - 1] != "undefined" && number_of_mines[row_last][col_last]==0  && uncovered[row_last][col_last]==0){
+        uncover_all_safe_cells("btn_"+row_last+"_"+col_last);
+    }
+    if(typeof number_of_mines[row - 1] != "undefined" && typeof number_of_mines[row - 1][col] != "undefined" && number_of_mines[row_last][col]==0 && uncovered[row_last][col]==0){
+        uncover_all_safe_cells("btn_"+row_last+"_"+col);
+    }
+    if(typeof number_of_mines[row - 1] != "undefined" && typeof number_of_mines[row - 1][col + 1] != "undefined" && number_of_mines[row_last][col_next]==0 && uncovered[row_last][col_next]==0){
+        uncover_all_safe_cells("btn_"+row_last+"_"+col_next);
+    }
+    if(typeof number_of_mines[row] != "undefined" && typeof number_of_mines[row][col - 1] != "undefined" && number_of_mines[row][col_last]==0 && uncovered[row][col_last]==0){
+        uncover_all_safe_cells("btn_"+row+"_"+col_last);
+    }
+    if(typeof number_of_mines[row] != "undefined" && typeof number_of_mines[row][col + 1] != "undefined" && number_of_mines[row][col_next]==0 && uncovered[row][col_next]==0){
+        uncover_all_safe_cells("btn_"+row+"_"+col_next);
+    }
+    if(typeof number_of_mines[row + 1] != "undefined" && typeof number_of_mines[row + 1][col - 1] != "undefined" && number_of_mines[row_next][col_last]==0 && uncovered[row_next][col_last]==0){
+        uncover_all_safe_cells("btn_"+row_next+"_"+col_last);
+    }
+    if(typeof number_of_mines[row + 1] != "undefined" && typeof number_of_mines[row + 1][col] != "undefined" && number_of_mines[row_next][col]==0 && uncovered[row_next][col]==0){
+        uncover_all_safe_cells("btn_"+row_next+"_"+col);
+    }
+    if(typeof number_of_mines[row + 1] != "undefined" && typeof number_of_mines[row + 1][col + 1] != "undefined" && number_of_mines[row_next][col_next]==0 && uncovered[row_next][col_next]==0){
+        uncover_all_safe_cells("btn_"+row_next+"_"+col_next);
+    }
+    
+    
+}
 
 function change_cells_bg(cell) {
 
@@ -135,7 +197,7 @@ function change_cells_bg(cell) {
         0: "url('" + path + "Minesweeper_0.png')",
         1: "url('" + path + "Minesweeper_1.png')",
         2: "url('" + path + "Minesweeper_2.png')",
-        3: "url('" + path + "Minesweeper_8.png')",
+        3: "url('" + path + "Minesweeper_3.png')",
         4: "url('" + path + "Minesweeper_4.png')",
         5: "url('" + path + "Minesweeper_5.png')",
         6: "url('" + path + "Minesweeper_6.png')",
@@ -147,10 +209,42 @@ function change_cells_bg(cell) {
     var cellID = cell.substr(4, cell.size).split("_");
     var row = cellID[0];
     var col = cellID[1];
-    document.getElementById(cell).style.backgroundImage = m[number_of_mines[row][col]];
+    if(number_of_mines[row][col]==0){
+        uncover_all_safe_cells(cell);
+    }
+    else{
+        
+        document.getElementById(cell).style.backgroundImage = m[number_of_mines[row][col]];
+        uncovered[row][col]=1;
+        if(number_of_mines[row][col]=="*"){
 
+            click_mines(cellID);
+        }
+        
+            // alert("Game over!")
+            // document.getElementById(cell).style.backgroundImage = m["*"];
+ 
+    }
 }
 
+function click_mines(cellID){
+    var row = cellID[0];
+    var col = cellID[1];
+    for(var i=0;i<number_of_mines.length;i++){
+        for(var j=0;j<number_of_mines[i].length;j++){
+            // if(i==row && j==col){}
+            // else{
+              
+                if(number_of_mines[i][j]=="*"  && (i!=row || j!=col)){
+                    document.getElementById("btn_"+i+"_"+j).style.backgroundImage = "url('" + path + "Minesweeper_mine.png')";
+                }
+            // }
+                
+               
+        }
+    }
+    document.getElementById("game_over_box").className="visible";
+}
 function get_constant() {
 
     if (document.getElementById("input_row").value == "" || document.getElementById("input_col").value == "" || document.getElementById("input_landmine".value) == "") {

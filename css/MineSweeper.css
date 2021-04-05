@@ -4,22 +4,47 @@
     border:2px solid grey;
     
 } */
+/* table{border: 1px solid #151515} */
 #mines_table{
-    margin-left:20%;
-    /* margin-top:20%; */
+    margin-left:10%;
+    border: 1px solid #151515
 }
+#game_over_box{
+    width:auto;
+    margin-left:10%;
+    padding-left: 15px;
+    color:rgb(192, 8, 8);
+    font-size: larger;
+    
+    /* border: 2px solid rgb(19, 8, 8); */
+}
+.hidden{
+    /* display:none; */
+    visibility: hidden;
+}
+.visible{
+    /* display:none; */
+    visibility: visible;
+}
+tr{
+    border:0;
+}
+td{
+    /* height:20px; */
+    border:0;
+    padding:0;
+    line-height: 0px;
 
+}
 button{
     width:20px;
     height:20px;
-    padding:0px;
-    /* background-image: url("Minesweeper_unopened_square.png"); */
     background-size: contain;
     background-repeat: no-repeat;
-    border:0px solid rgb(248, 43, 43);
-    margin:auto;
-
-    
+    border:0px solid ;
+    padding:0;
+    /* margin:auto; */
+   
 }
 
 /* .input_text{
@@ -28,8 +53,10 @@ button{
 } */
 
 #framework{
-    margin-left:50%;
+    margin-left:20%;
     margin-top:20%;
+    padding:0;
+    /* border:auto; */
     /* width:220px;
     height:350px; */
     /* background-color: gray; */
